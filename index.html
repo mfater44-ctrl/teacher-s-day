@@ -141,6 +141,18 @@
             overflow: hidden;
         }
 
+        .envelope-top-lace {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 34px;
+            display: block;
+            z-index: 12;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
         /* رفرف الظرف المتحرك */
         .envelope-flap {
             position: absolute;
@@ -180,7 +192,6 @@
             width: 100%;
             height: 25px;
             background-image: radial-gradient(circle, #fff 50%, transparent 51%);
-            background-size: 12px 12px;
             background-repeat: repeat-x;
             z-index: 5;
             opacity: 0.85;
@@ -292,6 +303,7 @@
             </div>
             <div class="envelope-wrapper" onclick="openEnvelope()">
                 <div class="envelope">
+                    <img class="envelope-top-lace" src="assest/d.png" alt="lace trim">
                     <div class="envelope-flap">
                         <div class="lace-trim-flap"></div>
                     </div>
@@ -338,10 +350,7 @@
         sealPreview.hidden = false;
         sealText.hidden = true;
 
-        waxSeal.addEventListener('click', function (event) {
-            event.stopPropagation();
-            sealInput.click();
-        });
+        waxSeal.style.pointerEvents = 'none';
 
         sealInput.addEventListener('change', function (event) {
             const file = event.target.files[0];

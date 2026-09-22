@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رسالة شكر وامتنان - يوم المعلم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f7f4ee;
+            background-image: radial-gradient(#e6decb 1px, transparent 1px);
+            background-size: 24px 24px;
+            font-family: 'Cairo', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            color: #4a4238;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-family: 'Amiri', serif;
+            font-size: 2.2rem;
+            color: #5c6b73;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #8c7b6c;
+            margin-bottom: 30px;
+        }
+
+        /* الحاوية الكلية */
+        .envelope-box {
+            position: relative;
+            width: 360px;
+            height: 360px;
+            margin: 10px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* البطاقة الداخلية - تظل ثابتة في المنتصف عندما تفتح */
+        .card {
+            position: absolute;
+            width: 330px;
+            background: #ffffff;
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(92, 107, 115, 0.15);
+            z-index: 1;
+            border: 1px solid #eae2d0;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s;
+            pointer-events: none;
+        }
+
+        .envelope-box.open .card {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        .card-content {
+            font-family: 'Amiri', serif;
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: #3b4248;
+            margin-bottom: 20px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .reset-btn {
+            background-color: #5c6b73;
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .reset-btn:hover {
+            background-color: #455259;
+        }
+
+        /* الظرف نفسه - يتحرك للأسفل عند الفتح */
+        .envelope-wrapper {
+            position: absolute;
+            width: 360px;
+            height: 240px;
+            cursor: pointer;
+            transition: transform 0.6s ease, opacity 0.4s ease;
+            filter: drop-shadow(0 15px 25px rgba(92, 107, 115, 0.15));
+            z-index: 5;
+            bottom: 30px;
+        }
+
+        .envelope-wrapper:hover {
+            transform: translateY(-5px);
+        }
+
+        .envelope-box.open .envelope-wrapper {
+            transform: translateY(130px); /* ينزل الظرف إلى الأسفل بسلاسة */
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #b0c4de;
+            border-radius: 0 0 12px 12px;
+            overflow: hidden;
+        }
+
+        /* رفرف الظرف المتحرك */
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: #9fb7d4;
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            transform-origin: top;
+            transition: transform 0.6s ease;
+            z-index: 4;
+        }
+
+        .envelope-box.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope-pocket {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 140px;
+            background: #b0c4de;
+            clip-path: polygon(0 100%, 50% 30%, 100% 100%);
+            z-index: 3;
+            border-radius: 0 0 12px 12px;
+        }
+
+        /* شريط الدانتيل */
+        .lace-trim {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 25px;
+            background-image: radial-gradient(circle, #fff 50%, transparent 51%);
+            background-size: 12px 12px;
+            background-repeat: repeat-x;
+            z-index: 5;
+            opacity: 0.85;
+        }
+
+        .lace-trim-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, #fff 45%, transparent 46%);
+            background-size: 14px 14px;
+            background-repeat: repeat-x;
+            z-index: 5;
+            opacity: 0.8;
+        }
+
+        /* ختم الشمع */
+        .wax-seal {
+            position: absolute;
+            right: 50%;
+            top: 50%;
+            transform: translate(50%, -50%);
+            width: 92px;
+            height: 92px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+            cursor: pointer;
+            z-index: 10;
+            transition: transform 0.2s ease, filter 0.2s ease;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .wax-seal:hover {
+            transform: translate(50%, -50%) scale(1.04);
+            filter: brightness(1.04);
+        }
+
+        .wax-seal img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.18));
+        }
+
+        .seal-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #683d2c;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+        }
+
+        .envelope-box.open .wax-seal {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .envelope-text {
+            position: absolute;
+            top: 35px;
+            width: 100%;
+            text-align: center;
+            z-index: 5;
+            color: #2c3e50;
+            font-family: 'Amiri', serif;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .open-hint {
+            position: absolute;
+            bottom: 12px;
+            width: 100%;
+            text-align: center;
+            z-index: 2;
+            color: #ffffff;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .flower-dec {
+            margin-top: 15px;
+            font-size: 1.5rem;
+            color: #bfa181;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>يوم المعلم</h1>
+        <div class="subtitle">رسالة شكر وامتنان لكل معلمة ملهمة</div>
+
+        <div class="envelope-box" id="envelopeBox">
+            <div class="card" id="card">
+                <div class="card-content" id="messageContainer">
+                    جاري اختيار رسالتك الخاصة...
+                </div>
+                <button class="reset-btn" onclick="resetEnvelope(event)">إغلاق الظرف</button>
+            </div>
+            <div class="envelope-wrapper" onclick="openEnvelope()">
+                <div class="envelope">
+                    <div class="envelope-flap">
+                        <div class="lace-trim-flap"></div>
+                    </div>
+                    <div class="lace-trim" style="top: -2px;"></div>
+                    <div class="envelope-pocket"></div>
+                    <div class="envelope-text">إلى معلمتي الفاضلة</div>
+                    <div class="wax-seal" id="waxSeal" title="اختاري صورة للختم">
+                        <img id="sealPreview" alt="صورة الختم" hidden>
+                        <span class="seal-text" id="sealText">شكر</span>
+                    </div>
+                    <input type="file" id="sealImageInput" accept="image/*" hidden>
+                    <div class="open-hint">اضغطي هنا لفتح الرسالة</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flower-dec">❀ 𐐪𐑂 ❀</div>
+    </div>
+
+    <script>
+        const messages = [
+            "شكراً لأنك تزرعين الأمل كل يوم في قلوب طالباتك، وتصنعين فارقاً لا يُنسى في حياتهن.",
+            "إلى المعلمة التي تُحول صُعوبات العلم إلى متعة واكتشاف، جزاكِ الله خيراً عن كل حرفٍ علمتيه.",
+            "بصماتك الجميلة في قاعات الدراسة تبقى محفورة في الذاكرة للأبد. شكراً لعطائك اللا محدود.",
+            "رسالة حب وامتنان لكل لحظة صبر بذلتها من أجلنا ومن أجل إضاءة عقولنا. يوم معلم سعيد!",
+            "أنتِ لستِ مجرد معلمة، بل قنديل يضيء دروب النجاح والتفوق لكل من عرفكِ.",
+            "شكراً لقلبكِ الكبير وروحكِ الجميلة التي تتسع دائماً لاحتواء الجميع وتوجيههن نحو الأفضل.",
+            "كل كلمات الشكر لا توفيكِ حقكِ من التقدير. دمتِ نبراساً للعلوم والقيم والأخلاق.",
+            "لعطائكِ المستمر وأثركِ الطيب الذي لا يزال يثمر نجاحاً، لكِ منا كل الحب والامتنان.",
+            "وجودكِ في المدرسة يضفي طاقة إيجابية وإلهاماً حقيقياً لكل الطالبات والزميلات.",
+            "شكراً لأنكِ تؤمنين بقوة العلم وتؤدين رسالتكِ بأمانة وإخلاص عظيمين.",
+            "بفضلكِ تصبح الصعاب سهلة، والعلوم ممتعة. شكراً لكونكِ معلمة استثنائية بحق.",
+            "إلى كل شمعة تحترق لتضيء طريق الآخرين.. شكراً لأنكِ هنا تصنعين مستقبل الأجيال.",
+            "عطاؤكِ الفيض وجهدكِ الصادق هما أساس كل تميز وتفوق نراه اليوم. شكراً لكِ.",
+            "لكِ منا خالص الشكر والتقدير على تفانيكِ المستمر ورسالتكِ السامية في التعليم."
+        ];
+
+        const sealInput = document.getElementById('sealImageInput');
+        const sealPreview = document.getElementById('sealPreview');
+        const sealText = document.getElementById('sealText');
+        const waxSeal = document.getElementById('waxSeal');
+
+        sealPreview.src = 'assest/wax-removebg-preview.png';
+        sealPreview.hidden = false;
+        sealText.hidden = true;
+
+        waxSeal.addEventListener('click', function (event) {
+            event.stopPropagation();
+            sealInput.click();
+        });
+
+        sealInput.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                sealPreview.src = e.target.result;
+                sealPreview.hidden = false;
+                sealText.hidden = true;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function openEnvelope() {
+            const box = document.getElementById('envelopeBox');
+            if (!box.classList.contains('open')) {
+                const randomIndex = Math.floor(Math.random() * messages.length);
+                document.getElementById('messageContainer').innerText = messages[randomIndex];
+                box.classList.add('open');
+            }
+        }
+
+        function resetEnvelope(event) {
+            event.stopPropagation();
+            const box = document.getElementById('envelopeBox');
+            box.classList.remove('open');
+        }
+    </script>
+
+</body>
+</html>

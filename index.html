@@ -279,23 +279,65 @@
             letter-spacing: 0.5px;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
-
-        .flower-dec {
-            margin-top: 15px;
-            font-size: 1.5rem;
-            color: #bfa181;
-            opacity: 0.8;
-        }
-            /* تنسيق قسم التوقيع والاعتمادات في الأسفل */
-        .credits {
+                .credits {
             margin-top: 25px;
             text-align: center;
-@@ -344,67 +336,65 @@
+            font-size: 0.85rem;
+            color: #7a6b5d;
+            line-height: 1.6;
+            border-top: 1px dashed #d9ceb8;
+            padding-top: 12px;
+            width: 100%;
+            max-width: 360px;
+        }
+        .credits span {
+            display: block;
+            font-weight: 600;
+            color: #5c6b73;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>يوم المعلم</h1>
+        <div class="subtitle">رسالة شكر وامتنان لكل معلمة ملهمة</div>
+
+        </div>
+    </div>
+        <div class="envelope-box" id="envelopeBox">
+            <div class="card" id="card">
+                <div class="card-content" id="messageContainer">
+                    جاري اختيار رسالتك الخاصة...
+                </div>
+                <button class="reset-btn" onclick="resetEnvelope(event)">إغلاق الظرف</button>
+            </div>
+            <div class="envelope-wrapper" onclick="openEnvelope()">
+                <div class="envelope">
+                    <img class="envelope-top-lace" src="assest/d.png" alt="lace trim">
+                    <div class="envelope-flap">
+                        <div class="lace-trim-flap"></div>
+                    </div>
+                    <div class="lace-trim" style="top: -2px;"></div>
+                    <div class="envelope-pocket"></div>
+                    <div class="envelope-text">إلى معلمتي الفاضلة</div>
+                    <div class="wax-seal" id="waxSeal" title="اختاري صورة للختم">
+                        <img id="sealPreview" alt="صورة الختم" hidden>
+                        <span class="seal-text" id="sealText">شكر</span>
+                    </div>
+                    <input type="file" id="sealImageInput" accept="image/*" hidden>
+                    <div class="open-hint">اضغطي هنا لفتح الرسالة</div>
+                    </div>
+
+                      <!-- تذييل الصفحة بأسماء المبدعات -->
+                    <div class="credits">
+                        فكرة: مليكة محمود عزام | تطبيق: مريم فيصل فتر<br>
+                    <span>الصف: 5فيز2 | فريق التمكين الرقمي</span>
+                     مدرسة سار الثانوية للبنات
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="flower-dec">❀ 𐐪𐑂 ❀</div>
     </div>
 
     <script>
